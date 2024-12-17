@@ -16,3 +16,13 @@ app.listen(process.env.PORT || 3000, () => {
     connectMongoDB()
     console.log(`server running on port ${process.env.PORT}`)
 })
+
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message || 'Internal Server Error';
+    return res.status(statusCode).json({
+        success: true,
+        message,
+        statusCode
+    })
+})

@@ -1,6 +1,7 @@
 import { User } from "../models/UserShema.js";
 import bcryptjs from 'bcryptjs'
-export const Register = async (req, res) => {
+import { errorHandler } from "../utils/Error.js";
+export const Register = async (req, res ,next) => {
      
     try {
         const { username, email, password } = req.body;
@@ -23,7 +24,8 @@ export const Register = async (req, res) => {
         })
         
     } catch (error) {
-        res.status(401).json({message: error.message})
+        // res.status(401).json({message: error.message})
+        next(errorHandler(500 , error.message))
     }
 }
 export const Login = async (req, res) => {
