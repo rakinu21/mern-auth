@@ -1,0 +1,39 @@
+.users {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    width: 100dvh;
+  
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #333;
+    }
+  
+    .users-column, .users-row {
+      margin-bottom: 2rem;
+  
+      .user {
+        padding: 1rem;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+  
+        .name {
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+          color: #007bff;
+        }
+  
+        .email {
+          font-size: 0.9rem;
+          color: #666;
+        }
+      }
+    }
+  
+  }
+  

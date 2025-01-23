@@ -1,0 +1,29 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  
+    .header {
+      flex-shrink: 0; // Prevent header from shrinking
+    }
+  
+    .content {
+      flex-grow: 1; // Take remaining space
+      padding: 1rem;
+      background-color: #ffffff; // White background
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+  
+    .footer {
+      flex-shrink: 0;
+      padding: 1rem;
+      background-color: #f8f9fa;
+      border-top: 1px solid #ddd;
+      text-align: center;
+      color: #666;
+    }
+  }
+  
