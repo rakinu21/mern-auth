@@ -1,18 +1,11 @@
-import './styles/usersInfo.scss';
-import { useNavigate ,Link} from 'react-router-dom';
+import { useSelector } from "react-redux";
+import "./styles/usersInfo.scss";
+import { useNavigate, Link } from "react-router-dom";
 
 const UsersInfo = () => {
-  // Simulating user data (replace with actual user data from state or context)
-  const user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-  };
 
-  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.auth.userInfo); // Get user info from Redux
 
-  const handleEditProfile = () => {
-    navigate('/updateProfile'); // Navigate to the profile edit page
-  };
 
   return (
     <div className="usersInfo">
@@ -20,18 +13,17 @@ const UsersInfo = () => {
       <div className="profile-card">
         <div className="profile-info">
           <span className="label">Name:</span>
-          <span className="value">{user.name}</span>
+          <span className="value">{userInfo.user.name}</span>
         </div>
         <div className="profile-info">
           <span className="label">Email:</span>
-          <span className="value">{user.email}</span>
-              </div>
-     <Link to={'/updateRrofile/:id'}>
+          <span className="value">{userInfo.user.email}</span>
+        </div>
+        <Link to={`/updateRrofile/${userInfo.user._id}`}>
           <button className="edit-btn">
             Edit Profile
-         </button>
-      </Link>
-       
+          </button>
+        </Link>
       </div>
     </div>
   );

@@ -1,5 +1,4 @@
-
-import './App.css'
+import './App.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Homepage from './pages/homepage';
 import Login from './pages/login';
@@ -9,49 +8,52 @@ import Users from './pages/users';
 import Layout from './layout/Layout';
 import ErrorPage from './pages/errorPage';
 import UsersInfo from './pages/UsersInfo';
+import { PrivateRoutes } from './components/PrivateRouteController';
 
 const router = createBrowserRouter([
   {
-    element: <Layout/>,
+    element: <Layout />,
     errorElement: <ErrorPage />,
-    children: [  
+    children: [
       {
         path: '/',
-        element: <Homepage />
+        element: <Homepage />,
       },
       {
         path: '/login',
-        element: <Login />
+        element: <Login />,
       },
       {
         path: '/register',
-        element: <Register/>
+        element: <Register />,
       },
       {
-        path: '/updateRrofile/:id',
-        element: <UpdateProfile/>
+        element: <PrivateRoutes />, // Wrap protected routes with PrivateRoutes
+        children: [
+          {
+            path: '/updateRrofile/:id',
+            element: <UpdateProfile />,
+          },
+          {
+            path: '/profile',
+            element: <UsersInfo />,
+          },
+        ],
       },
       {
         path: '/users',
-        element: <Users/>
+        element: <Users />,
       },
-      {
-        path: '/profile',
-        element: <UsersInfo/>
-      }
-    ]
-  }
-])
+    ],
+  },
+]);
 
 function App() {
-
-
-
   return (
     <div className="app">
-       <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -1,30 +1,43 @@
-
+import React, { useEffect } from 'react';
+import { useGetAllUserMutation } from '../features/app/usersApiSlice';
 import './styles/users.scss';
+
 const Users = () => {
+    const [getAllUser, { data, isLoading, error }] = useGetAllUserMutation();
 
-    const users = [
-        { name: 'Alice', email: 'alice@example.com' },
-        { name: 'Bob', email: 'bob@example.com' },
-        { name: 'Charlie', email: 'charlie@example.com' },
-        { name: 'Diana', email: 'diana@example.com' },
-        { name: 'Eve', email: 'eve@example.com' },
-      ];
-  return (
-    <div className="users">
-    <h1>User List</h1>
+    useEffect(() => {
+        // Fetch all users when the component loads
+        const fetchUsers = async () => {
+            try {
+                await getAllUser(); // Call the API to fetch all users
+            } catch (err) {
+                console.error('Failed to fetch users:', err);
+            }
+        };
 
-    {/* Column Layout */}
-    <div className="users-column">
-      {users.map((user, index) => (
-        <div key={index} className="user">
-          <span className="name">{user.name}</span>
-          <span className="email">{user.email}</span>
+        fetchUsers();
+    }, [getAllUser]);
+
+    return (
+        <div className="users">
+            <h1>User List</h1>
+
+            {isLoading && <p>Loading...</p>}
+            {error && <p className="error">Failed to load users. Please try again later.</p>}
+            
+            {/* Display user data */}
+            {data?.users && (
+                <div className="users-column">
+                    {data.users.map((user, index) => (
+                        <div key={index} className="user">
+                            <span className="name">{user.name}</span>
+                            <span className="email">{user.email}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
-      ))}
-          </div>
-    </div>
-  )
-}
+    );
+};
 
-export default Users
-
+export default Users;

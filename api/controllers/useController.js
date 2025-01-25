@@ -93,33 +93,62 @@ export const getUserProfile = async (req, res) => {
 }
 
 
+
+
+// Get All Users
+export const getAllUsers = async (req, res) => {
+    try {
+        // Fetch all users and exclude their passwords
+        const users = await User.find().select('-password');
+
+        if (!users || users.length === 0) {
+            return res.status(404).json({
+                message: 'No users found',
+                success: false,
+            });
+        }
+
+        res.status(200).json({
+            message: 'Users fetched successfully',
+            success: true,
+            users,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: `Error: ${error.message}`,
+            success: false,
+        });
+    }
+};
+
+
+
 //update user
 
 
 export const updateProfile = async (req, res) => {
-    
     try {
-        const userId = req.params.id;
-        const { name, email, password } = req.body;
-
-        const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ message: 'User not found' });
-
-        if (name) user.name = name;
-        if (email) user.email = email;
-        if (password) user.password = bcryptjs.hashSync(password, 10);
-
-        const updatedUser = await user.save()
-        
-        res.status(200).json({
-            message: 'user successfully updated',
-            success: true,
-            user: updatedUser
-        })
+      const userId = req.params.id;
+      const { name, email, password } = req.body;
+  
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ message: 'User not found' });
+  
+      if (name) user.name = name;
+      if (email) user.email = email;
+      if (password) user.password = bcryptjs.hashSync(password, 10);
+  
+      const updatedUser = await user.save();
+  
+      res.status(200).json({
+        message: 'User successfully updated',
+        success: true,
+        user: updatedUser,
+      });
     } catch (error) {
-        res.status({message: `Error : ${error.message}`})
+      res.status(500).json({ message: `Error: ${error.message}` });
     }
-}
-
+  };
+  
 
 

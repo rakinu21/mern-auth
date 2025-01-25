@@ -17,5 +17,5 @@ app.use('/api/auth',authRouter)
 
 app.listen(process.env.PORT || 4000, () => {
     connectDb()
-    console.log('server running')
+    console.log('server running', process.env.PORT)
 })
