@@ -1,5 +1,5 @@
 import { useSelector , useDispatch } from 'react-redux';
-import './header.scss'
+import './Header.scss'
 import { Link, useNavigate } from 'react-router-dom'
 import { logout } from '../features/app/authSlice';
 import { useLogoutMutation} from '../features/app/usersApiSlice';
